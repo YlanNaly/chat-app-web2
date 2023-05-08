@@ -19,7 +19,7 @@ jobs:
         uses: jsmrcaga/action-netlify-deploy@v2.0.0
         with:
           NETLIFY_AUTH_TOKEN: oC2P_fiKn8yeDpIUWUyhueGNhdoiRv4sjJazx2y_ZF4
-          build_directory: ./build/
+          build_directory: ./next/
           build_command: npm run build
 
       - name: Run a multi-line script
