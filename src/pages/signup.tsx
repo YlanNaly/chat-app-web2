@@ -20,7 +20,7 @@ const SignupPage = () => {
     if (storedNom && storedEmail && storedMotDePasse && storedBio) {
       router.push('/global-chat');
     }
-  }, []);
+  }, [router]);
 
   const handleSignup = () => {
     localStorage.setItem('nom', nom);
