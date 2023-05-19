@@ -12,7 +12,7 @@ const Main = () => {
             router.push('/signup');
         }
 
-    }, [])
+    }, [router])
 
     return <div>Loading.... </div>;
 };

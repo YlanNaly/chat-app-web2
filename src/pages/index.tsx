@@ -1,5 +1,6 @@
 import Main from '@/components/main'
 import Head from 'next/head'
+import React from 'react'
 
 export default function Home() {
   return (
