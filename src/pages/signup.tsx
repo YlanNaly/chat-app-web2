@@ -1,78 +1,71 @@
-import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { BASE_URL } from './api/base';
+interface IFormInput {
+  name: String;
+  email: String;
+  password: String;
+  bio:String;
+}
 
 const SignupPage = () => {
-  const router = useRouter();
-
-  const [nom, setNom] = useState('');
-  const [email, setEmail] = useState('');
-  const [motDePasse, setMotDePasse] = useState('');
-  const [confirmationMotDePasse, setConfirmationMotDePasse] = useState('');
-  const [bio, setBio] = useState('');
-
-  useEffect(() => {
-    const storedNom = localStorage.getItem('nom');
-    const storedEmail = localStorage.getItem('email');
-    const storedMotDePasse = localStorage.getItem('motDePasse');
-    const storedBio = localStorage.getItem('bio');
-
-    if (storedNom && storedEmail && storedMotDePasse && storedBio) {
-      router.push('/global-chat');
-    }
-  }, [router]);
-
-  const handleSignup = () => {
-    localStorage.setItem('nom', nom);
-    localStorage.setItem('email', email);
-    localStorage.setItem('motDePasse', motDePasse);
-    localStorage.setItem('bio', bio);
-
-    router.push('/global-chat');
-  };
+  const router = useRouter()
+  const { register, formState: { errors }, handleSubmit } = useForm<IFormInput>();
+  const onSubmit: SubmitHandler<IFormInput> = data => {
+    axios.post<IFormInput>(
+    `${BASE_URL}/users`,data
+    )
+    .then(res => {
+      if(res.status == 201) router.push("/global-chat")
+      else{
+        router.push("/signup");
+        console.log(res.status)
+      }
+    })
+    .catch(er => console.log(er))
+  }
 
   return (
     <div className="form-wrapper">
       <Container>
         <Row>
           <Col>
-            <Form className="form-container">
+            <Form className="form-container" onSubmit={handleSubmit(onSubmit)}>
               <h2 className="form-title">Inscription</h2>
 
               <Form.Group className="form-input" controlId="formNom">
                 <Form.Label>Nom</Form.Label>
-                <Form.Control type="text" value={nom} onChange={(e) => setNom(e.target.value)} />
+                <Form.Control type="text"
+                {...register("name", { required: true, maxLength: 20 })}
+                />
               </Form.Group>
 
               <Form.Group className="form-input" controlId="formEmail">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Form.Control type="email"
+                {...register("email", { required: true, maxLength: 20 })}
+                />
               </Form.Group>
-
+              {errors.email && <p role="alert">{errors.email?.message}</p>}
               <Form.Group className="form-input" controlId="formMotDePasse">
                 <Form.Label>Mot de passe</Form.Label>
                 <Form.Control
                   type="password"
-                  value={motDePasse}
-                  onChange={(e) => setMotDePasse(e.target.value)}
+                {...register("password", { required: true, maxLength: 20 })}
+                  
                 />
               </Form.Group>
-
-              <Form.Group className="form-input" controlId="formConfirmationMotDePasse">
-                <Form.Label>Confirmation du mot de passe</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={confirmationMotDePasse}
-                  onChange={(e) => setConfirmationMotDePasse(e.target.value)}
-                />
-              </Form.Group>
-
-              <Form.Group className="form-input" controlId="formBio">
+              <Form.Group className="form-input" controlId="formMotDePasse">
                 <Form.Label>Bio</Form.Label>
-                <Form.Control as="textarea" value={bio} onChange={(e) => setBio(e.target.value)} />
+                <Form.Control
+                  type="text"
+                {...register("bio", { required: true})}
+                  
+                />
               </Form.Group>
-
-              <Button className="form-button" variant="primary" onClick={handleSignup}>
+              <Button type='submit' className="form-button" variant="primary">
                 S&apos;inscrire
               </Button>
             </Form>
