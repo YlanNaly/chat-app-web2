@@ -1,21 +1,23 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import Loader from "./atoms/loader";
 
 const Main = () => {
-   /** const router = useRouter();
+    const router = useRouter();
 
     useEffect(() => {
         const storedData = localStorage.getItem('data');
         if (storedData) {
-            router.push('/');
+            router.push('/profile');
         }else{
-            router.push('/');
+            router.push('/login');
         }
 
     }, [router]) 
 
-    return <div>Loading.... </div>; 
-    */
+    return (
+        <Loader/>
+    ); 
 };
 
 export default Main;
