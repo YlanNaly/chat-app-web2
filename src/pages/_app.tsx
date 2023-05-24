@@ -1,22 +1,16 @@
-import Navbar, { NavBarLink } from '@/components/molecules/navbar'
+import Navbar from '@/components/molecules/navbar'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App({ Component, pageProps }: AppProps) {
   
-  const navLink:NavBarLink[]=[ 
-    {
-      ref:"channel"
-    },
-    {
-      ref:"profile"
-    }
-  ]
+  
   
   return (
     <div>
 
-      <Navbar {...navLink}/>
+      <Navbar/>
       <Component {...pageProps} />
     
     </div>
