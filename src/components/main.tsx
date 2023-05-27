@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import Loader from "./atoms/loader";
+import Loader from "./molecules/loader";
 
 const Main = () => {
     const router = useRouter();
