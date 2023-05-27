@@ -1,10 +1,17 @@
 import Toast from 'react-bootstrap/Toast';
 import Image from 'next/image';
 
-function ToastsMessage() {
+export type TToast = {
+  title:string;
+  message:string;
+  variant:string;
+}
+
+function ToastsMessage(props:TToast) {
   return (
     <Toast
       className="d-inline-block m-1"
+      bg={props.variant.toLowerCase()}
     >
       <Toast.Header>
         <Image
@@ -12,10 +19,12 @@ function ToastsMessage() {
           className="rounded me-2"
           alt=""
         />
-        <strong className="me-auto">Bootstrap</strong>
+        <strong className="me-auto">
+          {props.title}
+        </strong>
         </Toast.Header>
         <Toast.Body className='text-white'>
-            Hello, world! This is a toast message.
+           {props.message}
         </Toast.Body>
     </Toast>
   );
