@@ -1,14 +1,19 @@
 import { Card } from "react-bootstrap"
 
-const CardLayout = () =>{
+export type TCardLayout = {
+    header:string;
+    title:string;
+    body:string;
+}
+
+const CardLayout = (props:TCardLayout) =>{
     return(
     <Card border="dark" style={{ width: '18rem' }}>
-        <Card.Header>Header</Card.Header>
+        <Card.Header>{props.header}</Card.Header>
         <Card.Body>
-            <Card.Title>Dark Card Title</Card.Title>
+            <Card.Title>{props.title}</Card.Title>
             <Card.Text>
-                Some quick example text to build on the card title and make up the
-                bulk of the card&apos;s content.
+                {props.body}
             </Card.Text>
         </Card.Body>
     </Card>
