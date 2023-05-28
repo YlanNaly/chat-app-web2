@@ -1,17 +1,23 @@
-/** import { useEffect} from "react";
+import { useEffect} from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useRouter } from 'next/router';
-import { UserLogin } from "./api/requests";
 import axios from "axios";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { BASE_URL } from "@/pages/api/base";
+import { SubmitHandler, useForm } from "react-hook-form/dist";
+import { UserLogin } from "@/pages/api/requests";
 
-const Authentification = () => {
+interface IAuthentication {
+  url: string,
+  title: string,
+  isLogin:boolean
+}
+
+const Authentication = (props:IAuthentication) => {
   const { register,formState: { errors }, handleSubmit } = useForm<UserLogin>();
   const router = useRouter();
   const onSubmit: SubmitHandler<UserLogin> = data => {
     axios.post<UserLogin>(
-    `${BASE_URL}/users/login`,data
+    `${BASE_URL}/users/${props.url}`,data
     )
     .then(res => {
       if(res.status == 201 || res.status == 200) {
@@ -23,8 +29,7 @@ const Authentification = () => {
         router.push("/global-chat")
       }
       else{
-        router.push("/login");
-        console.log(res.status)
+        router.push(`${props.url}`);
       }
     })
     .catch(er => console.log(er))
@@ -46,7 +51,7 @@ const Authentification = () => {
         <Row>
           <Col>
             <Form className="form-container" onSubmit={handleSubmit(onSubmit)}>
-              <h2 className="form-title">Authentification</h2>
+              <h2 className="form-title">{props.title}</h2>
 
               <Form.Group className="form-input" controlId="formNom">
                 <Form.Label>Nom</Form.Label>
@@ -72,7 +77,7 @@ const Authentification = () => {
               </Form.Group>
 
               <Button className="form-button" variant="primary" type="submit">
-                Se connecter
+                  {props.isLogin ? "Se connecter" : "S'inscrire"}  
               </Button>
               </Form>
           </Col>
@@ -82,4 +87,4 @@ const Authentification = () => {
     )
 }
 
-export default Authentification; */
+export default Authentication;
