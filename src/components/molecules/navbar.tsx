@@ -33,6 +33,7 @@ const Navbar = () =>{
                     </Nav>
                     <Button
                     onClick={()=>push("/login")}
+                    variant="danger"
                     >
                         Log Out
                     </Button>
