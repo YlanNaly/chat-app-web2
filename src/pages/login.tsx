@@ -31,9 +31,8 @@ const Login =()=>{
     const storedNom = localStorage.getItem('nom');
     const storedEmail = localStorage.getItem('email');
     const storedMotDePasse = localStorage.getItem('motDePasse');
-    const storedBio = localStorage.getItem('bio');
 
-    if (storedNom && storedEmail && storedMotDePasse && storedBio) {
+    if (storedNom && storedEmail && storedMotDePasse) {
       router.push('/global-chat');
     }
   }, [router]);
