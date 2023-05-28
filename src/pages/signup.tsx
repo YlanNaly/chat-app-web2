@@ -19,7 +19,7 @@ const SignUp =()=>{
         localStorage.setItem('email', data.email.toString());
         localStorage.setItem('motDePasse', data.password.toString());
 
-        router.push("/global-chat")
+        router.push("/channel/channel")
       }
       else{
         router.push("/signup");
@@ -33,7 +33,7 @@ const SignUp =()=>{
     const storedMotDePasse = localStorage.getItem('motDePasse');
 
     if (storedNom && storedEmail && storedMotDePasse) {
-      router.push('/global-chat');
+      router.push('/channel/channel');
     }
   }, [router]);
 
