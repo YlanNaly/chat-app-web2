@@ -41,7 +41,7 @@ const Login =()=>{
   return(
     <Authentication 
         title={"Authentification"} 
-        isLogin={false} 
+        isLogin={true} 
         handleSubmit={onSubmit}    
     />
   )

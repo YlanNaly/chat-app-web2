@@ -1,7 +1,6 @@
 import { User, UserLogin } from "@/pages/api/requests";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-
 interface IAuthentication {
   title: string,
   isLogin:boolean,
@@ -46,13 +45,17 @@ const Authentication = (props:IAuthentication) => {
                 <Form.Label>Bio</Form.Label>
                   <Form.Control
                     type="text"
-                    style={{marginBottom:"12px"}}
                     {...register("bio")}
                   />
               </Form.Group> :
               <></>
               }
-              <Button className="form-button" variant="primary" type="submit">
+              <Button 
+              className="form-button" 
+              variant="primary" 
+              type="submit"
+              style={{marginTop:"12px"}}
+              >
                   {props.isLogin ? "Se connecter" : "S'inscrire"}  
               </Button>
               </Form>
