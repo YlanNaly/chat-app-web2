@@ -12,3 +12,16 @@ export type UserLogin = {
     password: String;
     name: String;
 }
+
+export type Channel = {
+    id:number;
+    name:string;
+    type:string;
+}
+
+export type ChannelMember = [
+    {
+    memberId: number;
+    channelId:number;
+    }
+]

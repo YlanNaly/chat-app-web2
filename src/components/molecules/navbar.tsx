@@ -15,7 +15,7 @@ const Navbar = () =>{
     return(
         <NB bg="light" expand="lg" fixed="top" >
             <Container>
-                <NB.Brand href="/">
+                <NB.Brand href="/channel/channel">
                    <FaSlack/>
                 </NB.Brand>
                 <NB.Toggle aria-controls="basic-navbar-nav" />
@@ -24,11 +24,11 @@ const Navbar = () =>{
                         <Nav.Link href="/" as={Link} >Home</Nav.Link>
                         <Nav.Link href="/profile" as={Link}>Profile</Nav.Link>
                         <NavDropdown title="Channel" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="">
+                            <NavDropdown.Item href="/channel/channel">
                                 Channel list
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="/" as={Link}>Create channel</NavDropdown.Item>
+                            <NavDropdown.Item href="/channel/create" as={Link}>Create channel</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Button

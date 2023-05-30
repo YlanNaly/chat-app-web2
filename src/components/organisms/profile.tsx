@@ -1,7 +1,7 @@
 import ProfileStatistics from "@/components/molecules/Cards-profile";
 import Navbar from "@/components/molecules/navbar";
 
-const ProfileComponenent = () =>{
+const ProfileComponent = () =>{
     return(
         <>
             <Navbar/>
@@ -14,4 +14,4 @@ const ProfileComponenent = () =>{
 }
 
 
-export default ProfileComponenent;
+export default ProfileComponent;
