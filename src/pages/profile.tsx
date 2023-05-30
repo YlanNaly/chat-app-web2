@@ -1,8 +1,8 @@
-import ProfileComponenent from "@/components/organisms/profile";
+import ProfileComponent from "@/components/organisms/profile";
 
 const Profile = () =>{
     return(
-        <ProfileComponenent/>
+        <ProfileComponent/>
     )
 }
 
