@@ -10,7 +10,14 @@ const SignUp =()=>{
   const router = useRouter();
   const onSubmit: SubmitHandler<User> = data => {
     axios.post<User>(
-    `${BASE_URL}/users/signup`,data
+    `${BASE_URL}/users`
+    ,{
+      headers:{
+          authorization: process.env.NEXT_PUBLIC_JWT_TOKEN,
+          'Content-Type': "application/json"
+      },
+      body: JSON.stringify(data)
+    }
     )
     .then(res => {
       if(res.status == 201 || res.status == 200) {
@@ -41,7 +48,7 @@ const SignUp =()=>{
     <Authentication 
         title={"Inscription"} 
         isLogin={false} 
-        handleSubmit={onSubmit}    
+        handlerSubmit={onSubmit}    
     />
   )
 }
