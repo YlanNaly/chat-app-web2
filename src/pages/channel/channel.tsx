@@ -11,7 +11,7 @@ export interface IChannelGrid {
 export async function getServerSideProps() {
     let rep;
     try{
-        rep = await axios.get(`${BASE_URL}/channel/`,{
+        rep = await axios.get(`${BASE_URL}/channels`,{
         headers:{
             authorization: process.env.NEXT_PUBLIC_JWT_TOKEN
         }
