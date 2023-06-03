@@ -1,8 +1,7 @@
-import { BASE_URL } from "@/pages/api/base";
-import handler from "@/pages/api/hello";
 import { User, UserLogin } from "@/pages/api/requests";
+import Link from "next/link";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 interface IAuthentication {
   title: string,
   isLogin:boolean,
@@ -11,7 +10,6 @@ interface IAuthentication {
 
 const Authentication = (props:IAuthentication) => {
   const { register,formState: { errors }, handleSubmit } = useForm<UserLogin | User>();
-  
     return(
     <div className="form-wrapper">
       <Container>
@@ -43,14 +41,22 @@ const Authentication = (props:IAuthentication) => {
               </Form.Group>
               {
                 props.isLogin == false ?  
+                <>
                 <Form.Group className="form-input" controlId="formMotDePasse">
                 <Form.Label>Bio</Form.Label>
                   <Form.Control
                     type="text"
                     {...register("bio")}
                   />
-              </Form.Group> :
-              <></>
+              </Form.Group>
+              <p>
+                Déjà membre ? <Link href="/login">Login</Link>
+              </p>
+                </>
+              :
+              <p>
+                Voulez - vous s&quot;inscrire ? <Link href="/signup">Sign Up</Link>
+              </p>
               }
               <Button 
               className="form-button" 
