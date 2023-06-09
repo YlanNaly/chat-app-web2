@@ -1,9 +1,12 @@
 import { Card } from "react-bootstrap"
+import Button from "../atoms/button";
+import { FaArrowCircleRight } from "react-icons/fa";
 
 export type TCardLayout = {
     header:string | number;
     title:string;
     body:string;
+    children:any;
 }
 
 const CardLayout = (props:TCardLayout) =>{
@@ -20,6 +23,7 @@ const CardLayout = (props:TCardLayout) =>{
             <Card.Text>
                 {props.body}
             </Card.Text>
+            {props.children}
         </Card.Body>
     </Card>
     )

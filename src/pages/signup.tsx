@@ -15,7 +15,7 @@ const SignUp =()=>{
     .then(res => {
       if(res.data.status) {
         localStorage.setItem('users',JSON.stringify(res.data))
-        router.push( "/channel" as "/channel/channel" )
+        router.push("/channel/channel" )
       }
     })
     .catch(er => console.log(er))

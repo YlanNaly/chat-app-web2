@@ -43,7 +43,7 @@ const Authentication = (props:IAuthentication) => {
               {
                 props.isLogin == false ?  
                 <>
-                <Form.Group className="form-input" controlId="formMotDePasse">
+                <Form.Group className="form-input" controlId="formBio">
                 <Form.Label>Bio</Form.Label>
                   <Form.Control
                     type="text"
