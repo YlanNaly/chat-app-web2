@@ -1,12 +1,12 @@
 import ProfileStatistics from "@/components/molecules/Cards-profile";
 import Navbar from "@/components/molecules/navbar";
 
-const ProfileComponent = () =>{
+const ProfileComponent = (props:any) =>{
     return(
         <>
             <Navbar/>
             <ProfileStatistics
-                name="Ylan"
+                name={props.name}
                 channel={1}
             />
         </>

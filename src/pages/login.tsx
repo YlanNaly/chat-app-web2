@@ -10,26 +10,17 @@ const Login =()=>{
   const router = useRouter();
   
   const onSubmit: SubmitHandler<UserLogin> = data => {
+    console.log(data);
+    
     axios.post<UserLogin>(
     `${BASE_URL}/users/login`
-    ,{
-      headers:{
-          authorization: process.env.NEXT_PUBLIC_JWT_TOKEN,
-          'Content-Type': "application/json"
-      },
-      body: JSON.stringify(data)
-    })
+    ,data)
     .then(res => {
-      if(res.status == 201 || res.status == 200) {
-
-        localStorage.setItem('nom', data.name.toString());
-        localStorage.setItem('email', data.email.toString());
-        localStorage.setItem('motDePasse', data.password.toString());
-
+      if(res.data.status) {
+        localStorage.setItem('users',JSON.stringify(res.data.user))
+        
         router.push("/channel/channel")
-        return;
       }
-      router.push(`login`);
     })
     .catch(er => console.log(er))
   }

@@ -1,1 +1,1 @@
-export const BASE_URL = process.env.ROOT
+export const BASE_URL = process.env.NEXT_PUBLIC_ROOT
