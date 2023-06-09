@@ -8,9 +8,13 @@ export type User = {
 }
 
 export type UserLogin = {
-    email: String;
-    password: String;
-    name: String;
+    status:boolean,
+    user:{
+        email: String;
+        password: String;
+        name: String;
+        token:string
+    }
 }
 
 export type Channel = {

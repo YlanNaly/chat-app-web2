@@ -31,7 +31,8 @@ const Authentication = (props:IAuthentication) => {
                 {...register("email", { required: true, maxLength: 20 })}
                 />
               </Form.Group>
-              {errors.email && <p role="alert">{errors.email?.message}</p>}
+              {errors.email
+               && <p role="alert">{errors.email?.message}</p>}
               <Form.Group className="form-input" controlId="formMotDePasse">
                 <Form.Label>Mot de passe</Form.Label>
                 <Form.Control
