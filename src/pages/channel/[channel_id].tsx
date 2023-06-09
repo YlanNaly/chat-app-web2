@@ -1,46 +1,76 @@
-import Navbar from "@/components/molecules/navbar";
-import { Row } from "react-bootstrap";
-import { Channel } from "../api/requests";
-import ChannelComponent from "@/components/organisms/channel";
-import { BASE_URL } from "../api/base";
-import axios from "axios";
-export interface IChannelGrid {
-    channels: Channel;
-}
+import { sendMessage, getMessageByChannelId } from "@/lib/ApiMessage";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { CreateMessage, ResponseMessage } from "../api/requests";
+import DisplayChannel from "@/components/organisms/display-chanel";
 
-export async function getServerSideProps({params}:any) {
-    let rep;
-    const {id} = params;
-    try{
-        rep = await axios.get(`${BASE_URL}/channel/${id}`,{
-        headers:{
-            authorization: process.env.NEXT_PUBLIC_JWT_TOKEN
-        }
-    });
+export default function ChannelMessage() {
+  const router = useRouter();
+  const [data, setData] = useState<ResponseMessage>();
+  const [messageContent, setMessageContent] = useState<any>();
+
+  class messageForm {
+    channelId: number;
+    recipientId: number;
+    content: String | undefined;
+
+    constructor(
+      channelId: number,
+      recipientId: any,
+      content: String | undefined
+    ) {
+      this.channelId = channelId;
+      this.recipientId = recipientId;
+      this.content = content;
     }
-    catch(e){
-        console.log(e)
-        rep = {
-            id:0,
-            name:"channel 0",
-            type:"private"
-        }
+  }
+
+  function handleClick() {
+    let channel_id = parseInt(Cookies.get("id") || "", 10);
+    let recipient_id = null;
+
+    const message = new messageForm(channel_id, recipient_id, messageContent);
+    sendMessage(message as CreateMessage);
+  }
+
+  function moveToEditChannel() {
+    router.push(`/channel/edit/${Cookies.get("id")}`);
+  }
+
+  useEffect(() => {
+    const channel_id = parseInt(Cookies.get("id") || "", 10);
+
+    if (!isNaN(channel_id)) {
+      getMessageByChannelId(setData, channel_id);
     }
-    return {
-        props: {rep}
-        };
-    } 
 
-const OneChannel = (props:IChannelGrid) =>{
-    const {channels} = props;
-    return(
-    <>
-    <Navbar/>
-    <Row>
-        <ChannelComponent channel={channels} key={channels?.id}/>
-    </Row>
-    </>
-    )
+    const fetchData = () => {
+      if (!isNaN(channel_id)) {
+        getMessageByChannelId(setData, channel_id);
+      }
+      setTimeout(fetchData, 1000);
+    };
+
+    const timeout = setTimeout(fetchData, 1000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  useEffect(() =>{
+    
+  })
+
+  return (
+    <div>
+      <DisplayChannel
+        response={data}
+        setMessageContent={setMessageContent}
+        handleClick={handleClick}
+        moveToEditChannel={moveToEditChannel}
+      />
+    </div>
+  );
 }
-
-export default OneChannel;

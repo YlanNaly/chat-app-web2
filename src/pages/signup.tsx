@@ -11,25 +11,11 @@ const SignUp =()=>{
   const onSubmit: SubmitHandler<User> = data => {
     axios.post<User>(
     `${BASE_URL}/users`
-    ,{
-      headers:{
-          authorization: process.env.NEXT_PUBLIC_JWT_TOKEN,
-          'Content-Type': "application/json"
-      },
-      body: JSON.stringify(data)
-    }
-    )
+    ,data)
     .then(res => {
-      if(res.status == 201 || res.status == 200) {
-
-        localStorage.setItem('nom', data.name.toString());
-        localStorage.setItem('email', data.email.toString());
-        localStorage.setItem('motDePasse', data.password.toString());
-
-        router.push("/channel/channel")
-      }
-      else{
-        router.push("/signup");
+      if(res.data.status) {
+        localStorage.setItem('users',JSON.stringify(res.data))
+        router.push("/channel/channel" )
       }
     })
     .catch(er => console.log(er))

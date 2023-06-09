@@ -8,10 +8,15 @@ import {
 import {FaSlack} from "react-icons/fa";
 import Button from "../atoms/button";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const Navbar = () =>{
     const {push} = useRouter();
-
+    const logOut = () =>{
+        localStorage.clear();
+        push("/login")
+        Cookies.remove('token')
+    }
     return(
         <NB bg="light" expand="lg" fixed="top" >
             <Container>
@@ -32,7 +37,9 @@ const Navbar = () =>{
                         </NavDropdown>
                     </Nav>
                     <Button
-                    onClick={()=>push("/login")}
+                    onClick={()=>logOut()}
+                    className="logoutButton"
+                    type="submit"
                     variant="danger"
                     >
                         Log Out

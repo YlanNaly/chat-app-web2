@@ -1,5 +1,4 @@
 import Toast from 'react-bootstrap/Toast';
-import Image from 'next/image';
 
 export type TToast = {
   title:string;
@@ -12,13 +11,9 @@ function ToastsMessage(props:TToast) {
     <Toast
       className="d-inline-block m-1"
       bg={props.variant.toLowerCase()}
+      style={{position:"fixed" , zIndex:100}}
     >
       <Toast.Header>
-        <Image
-          src="holder.js/20x20?text=%20"
-          className="rounded me-2"
-          alt=""
-        />
         <strong className="me-auto">
           {props.title}
         </strong>

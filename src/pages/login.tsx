@@ -1,41 +1,34 @@
-import { useEffect} from "react";
 import { useRouter } from 'next/router';
 import axios from "axios";
 import { BASE_URL } from "@/pages/api/base";
 import { SubmitHandler, useForm } from "react-hook-form/dist";
 import { UserLogin } from "@/pages/api/requests";
 import Authentication from "@/components/organisms/authentication";
+import Cookies from "js-cookie";
 
 const Login =()=>{
   const router = useRouter();
   
   const onSubmit: SubmitHandler<UserLogin> = data => {
-    console.log(data);
-    
     axios.post<UserLogin>(
     `${BASE_URL}/users/login`
     ,data)
     .then(res => {
-      if(res.data.status) {
-        localStorage.setItem('users',JSON.stringify(res.data.user))
-        
-        router.push("/channel/channel")
+      if(!res.data.status) {
+        return;
       }
+      localStorage.setItem('users',JSON.stringify(res.data.user))
+      Cookies.set("token", res.data.user.token);
+      Cookies.set("username", res.data.user.name);
+      Cookies.set("id", res.data.user.id);
+
+      router.push("/channel/channel")
     })
     .catch(er => console.log(er))
   }
-  useEffect(() => {
-    const storedNom = localStorage.getItem('nom');
-    const storedEmail = localStorage.getItem('email');
-    const storedMotDePasse = localStorage.getItem('motDePasse');
-
-    if (storedNom && storedEmail && storedMotDePasse) {
-      router.push('/channel/channel');
-    }
-  }, [router]);
   return(
     <Authentication 
-        title={"Authentification"} 
+        title={"Authentication"} 
         isLogin={true} 
         handlerSubmit={onSubmit}
     />

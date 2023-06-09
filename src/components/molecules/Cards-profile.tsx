@@ -9,6 +9,17 @@ import {
     MDBCardImage, 
     MDBBtn, 
     MDBTypography, 
+    MDBIcon, 
+    MDBTextArea
+} from 'mdb-react-ui-kit';
+import { AiFillEdit } from 'react-icons/ai';
+
+export type TProfile = {
+    name:string;
+    bio:string;
+}
+
+export default function ProfileStatistics(props:TProfile) {
     MDBIcon 
 } from 'mdb-react-ui-kit';
 
@@ -30,9 +41,10 @@ export default function ProfileStatistics(props:TProfile) {
                   <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
                     className="rounded-circle" fluid style={{ width: '100px' }} />
                 </div>
+                <span style={{float:"right"}}><AiFillEdit/></span>
                 <MDBTypography tag="h4">{props.name}</MDBTypography>
                 <MDBCardText className="text-muted mb-4">
-                  @Programmer <span className="mx-2">|</span>
+                  {props.bio}
                 </MDBCardText>
                 <div className="mb-4 pb-2">
                   <MDBBtn outline floating>
@@ -44,23 +56,6 @@ export default function ProfileStatistics(props:TProfile) {
                   <MDBBtn outline floating>
                     <MDBIcon fab icon="skype" size="lg" />
                   </MDBBtn>
-                </div>
-                <MDBBtn rounded size="lg">
-                  Message now
-                </MDBBtn>
-                <div className="d-flex justify-content-between text-center mt-5 mb-2">
-                  <div>
-                    <MDBCardText className="mb-1 h5">8471</MDBCardText>
-                    <MDBCardText className="small text-muted mb-0">Wallets Balance</MDBCardText>
-                  </div>
-                  <div className="px-3">
-                    <MDBCardText className="mb-1 h5">8512</MDBCardText>
-                    <MDBCardText className="small text-muted mb-0">Followers</MDBCardText>
-                  </div>
-                  <div>
-                    <MDBCardText className="mb-1 h5">{props.channel}</MDBCardText>
-                    <MDBCardText className="small text-muted mb-0">Channel number</MDBCardText>
-                  </div>
                 </div>
               </MDBCardBody>
             </MDBCard>

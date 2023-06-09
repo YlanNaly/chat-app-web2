@@ -43,7 +43,7 @@ const Authentication = (props:IAuthentication) => {
               {
                 props.isLogin == false ?  
                 <>
-                <Form.Group className="form-input" controlId="formMotDePasse">
+                <Form.Group className="form-input" controlId="formBio">
                 <Form.Label>Bio</Form.Label>
                   <Form.Control
                     type="text"
@@ -60,7 +60,7 @@ const Authentication = (props:IAuthentication) => {
               </p>
               }
               <Button 
-              className="form-button" 
+              className={props.isLogin ? "loginButton form-button" : "form-button"} 
               variant="primary" 
               type="submit"
               style={{marginTop:"12px"}}
