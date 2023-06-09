@@ -20,7 +20,16 @@ export type TProfile = {
 }
 
 export default function ProfileStatistics(props:TProfile) {
- 
+    MDBIcon 
+} from 'mdb-react-ui-kit';
+
+export type TProfile = {
+    name:string;
+    channel:number
+}
+
+export default function ProfileStatistics(props:TProfile) {
+
   return (
     <div className="vh-100" style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="container py-5 h-100">
