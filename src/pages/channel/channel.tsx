@@ -4,41 +4,41 @@ import { Channel } from "../api/requests";
 import ChannelComponent from "@/components/organisms/channel";
 import { BASE_URL } from "../api/base";
 import axios from "axios";
+import router, { useRouter } from "next/router";
+import { useEffect } from "react";
+import { NextRequest } from "next/server";
 export interface IChannelGrid {
     channels?: Channel[];
 }
 
-export async function getServerSideProps() {
-    let rep;
-    try{
-        rep = await axios.get(`${BASE_URL}/channels`,{
-        headers:{
-            authorization: process.env.NEXT_PUBLIC_JWT_TOKEN
-        }
-    });
-    }
-    catch(e){
-        rep = [];
-    }
-
-    const preprocessData = (data:any) =>{
-        const processed:any[] = [];
-
-        data.forEach((channel:Channel) =>{
-            const {id,name} = channel;
-            if(id && name ) processed.push(channel)
-        })
-        return processed;
-    }
-    return {
-        props: {
-                data: preprocessData(rep)
-            },
-        };
-    } 
-
-const Channel = (props:IChannelGrid) =>{
+function DisplayChannel(props:IChannelGrid) {
     const {channels} = props;
+    const router = useRouter();
+    useEffect(()=>{
+        (
+            async function(){
+                const res = await axios.get(`${BASE_URL}/channels`,{
+                    headers:{
+                        Authorization: `Bearer ${JSON.parse(localStorage.getItem('users') || "").token}`
+                    }
+                })
+                setCurrentUser(res.data.user)
+            }
+        )()
+    },[])
+
+    useEffect(()=>{
+        try{
+            const token = JSON.parse(localStorage.getItem('users') || "").token;
+            if(!token){
+                router.push("/login")
+            }
+        }
+        catch(e){
+            router.push("/login")
+        }
+    },[router])
+    
     return(
     <>
     <Navbar/>
@@ -50,5 +50,4 @@ const Channel = (props:IChannelGrid) =>{
     </>
     )
 }
-
-export default Channel;
+export default DisplayChannel;

@@ -60,7 +60,7 @@ const Authentication = (props:IAuthentication) => {
               </p>
               }
               <Button 
-              className="form-button" 
+              className={props.isLogin ? "loginButton form-button" : "form-button"} 
               variant="primary" 
               type="submit"
               style={{marginTop:"12px"}}

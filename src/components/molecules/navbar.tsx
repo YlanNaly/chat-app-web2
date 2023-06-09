@@ -11,7 +11,9 @@ import { useRouter } from "next/router";
 
 const Navbar = () =>{
     const {push} = useRouter();
-
+    const logOut = () =>{
+        localStorage.clear();
+    }
     return(
         <NB bg="light" expand="lg" fixed="top" >
             <Container>
@@ -32,7 +34,8 @@ const Navbar = () =>{
                         </NavDropdown>
                     </Nav>
                     <Button
-                    onClick={()=>push("/login")}
+                    onClick={()=>logOut()}
+                    className="logoutButton"
                     variant="danger"
                     >
                         Log Out

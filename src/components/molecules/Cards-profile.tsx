@@ -11,14 +11,18 @@ import {
     MDBTypography, 
     MDBIcon 
 } from 'mdb-react-ui-kit';
+import { useRouter } from 'next/router';
 
 export type TProfile = {
+    id:number;
     name:string;
-    channel:number
+    channel:number;
+    onClick:()=>void;
+    bio:string;
 }
 
 export default function ProfileStatistics(props:TProfile) {
-
+ 
   return (
     <div className="vh-100" style={{ backgroundColor: '#eee' }}>
       <MDBContainer className="container py-5 h-100">
@@ -32,7 +36,7 @@ export default function ProfileStatistics(props:TProfile) {
                 </div>
                 <MDBTypography tag="h4">{props.name}</MDBTypography>
                 <MDBCardText className="text-muted mb-4">
-                  @Programmer <span className="mx-2">|</span>
+                  {props.bio} <span className="mx-2">|</span>
                 </MDBCardText>
                 <div className="mb-4 pb-2">
                   <MDBBtn outline floating>
@@ -45,7 +49,8 @@ export default function ProfileStatistics(props:TProfile) {
                     <MDBIcon fab icon="skype" size="lg" />
                   </MDBBtn>
                 </div>
-                <MDBBtn rounded size="lg">
+                <MDBBtn rounded size="lg" 
+                onClick={props.onClick}>
                   Message now
                 </MDBBtn>
                 <div className="d-flex justify-content-between text-center mt-5 mb-2">
